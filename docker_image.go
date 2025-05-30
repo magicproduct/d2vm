@@ -113,21 +113,17 @@ func (i image) Flatten(ctx context.Context, out string) error {
 	if err := os.MkdirAll(out, os.ModePerm); err != nil {
 		return err
 	}
-	tar := filepath.Join(i.dir, "img.tar")
-	f, err := os.Create(tar)
-	if err != nil {
-		return err
+
+	tarStream := mutate.Extract(i.img)
+	defer tarStream.Close()
+
+	cmd := exec.CommandContext(ctx, "tar", "xvf", "-", "-C", out)
+	cmd.Stdin = tarStream // Pipe the tar stream to tar's stdin
+
+	if err := cmd.Run(); err != nil {
+		return fmt.Errorf("failed to extract tar stream: %w", err)
 	}
-	defer f.Close()
-	if _, err := io.Copy(f, mutate.Extract(i.img)); err != nil {
-		return err
-	}
-	if err := f.Close(); err != nil {
-		return err
-	}
-	if err := exec.Run(ctx, "tar", "xvf", tar, "-C", out); err != nil {
-		return err
-	}
+
 	return nil
 }
 
