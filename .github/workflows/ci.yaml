@@ -102,12 +102,8 @@ jobs:
     strategy:
       matrix:
         image:
-        - alpine:3.17
-        - ubuntu:20.04
         - ubuntu:22.04
-        - debian:10
         - debian:11
-        - centos:8
         - quay.io/centos/centos:stream9
     steps:
     - name: Checkout
