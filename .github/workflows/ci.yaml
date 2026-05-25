@@ -10,6 +10,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   tests:
     name: Tests
@@ -103,7 +107,9 @@ jobs:
         lookup-only: true
 
     - name: Run tests
-      run: git --no-pager diff --exit-code HEAD~1 HEAD **/**.go templates/ || IMAGE=${{ matrix.image }} make test-templates
+      env:
+        MATRIX_IMAGE: ${{ matrix.image }}
+      run: git --no-pager diff --exit-code HEAD~1 HEAD **/**.go templates/ || IMAGE="${MATRIX_IMAGE}" make test-templates
 
 
   e2e-tests:
@@ -150,7 +156,9 @@ jobs:
         lookup-only: true
 
     - name: Run end-to-end tests
-      run: E2E_IMAGES=${{ matrix.image }} make e2e
+      env:
+        MATRIX_IMAGE: ${{ matrix.image }}
+      run: E2E_IMAGES="${MATRIX_IMAGE}" make e2e
 
   docs-up-to-date:
     name: Docs up to date
