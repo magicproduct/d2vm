@@ -2,14 +2,20 @@ name: Docs
 on:
   push:
     tags: [ "v*" ]
+
+permissions:
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
+      uses: chainguard-actions/actions-checkout@d1f1061cdaee56aa3a3bc3deb86b67b1db772dd6 # v6.0.2
+      with:
+        persist-credentials: false
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@f211e3e9ded2d9377c8cadc4489a4e38014bc4c9
+      uses: docker/setup-buildx-action@f211e3e9ded2d9377c8cadc4489a4e38014bc4c9 # v1.7.0
     - name: Build and deploy mkdocs site
       run: |
         git config --global user.name "github-actions[bot]"

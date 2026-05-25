@@ -6,6 +6,10 @@ on:
     tags: [ "v*" ]
   pull_request:
     branches: [ main ]
+
+permissions:
+  contents: read
+
 jobs:
   tests:
     name: Tests
@@ -13,27 +17,29 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
+      uses: chainguard-actions/actions-checkout@d1f1061cdaee56aa3a3bc3deb86b67b1db772dd6 # v6.0.2
       with:
         # fetching all tags is required for the Makefile to compute the right version
         fetch-depth: 0
+        persist-credentials: false
 
     - name: Set up Go
-      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492
+      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492 # v2.2.0
       with:
         go-version: "1.20"
+        cache: false
 
     - name: Set up QEMU dependency
-      uses: docker/setup-qemu-action@27d0a4f181a40b142cce983c5393082c365d1480
+      uses: docker/setup-qemu-action@27d0a4f181a40b142cce983c5393082c365d1480 # v1.2.0
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@f211e3e9ded2d9377c8cadc4489a4e38014bc4c9
+      uses: docker/setup-buildx-action@f211e3e9ded2d9377c8cadc4489a4e38014bc4c9 # v1.7.0
 
     - name: Setup dependencies
       run: sudo apt update && sudo apt install -y util-linux udev parted e2fsprogs mount tar extlinux qemu-utils qemu-system
 
     - name: Share cache with other actions
-      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c
+      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3.5.0
       with:
         path: |
           ~/go/pkg/mod
@@ -41,6 +47,7 @@ jobs:
         key: ${{ runner.os }}-tests-${{ github.sha }}
         restore-keys: |
           ${{ runner.os }}-tests-
+        lookup-only: true
 
     - name: Run linter
       run: make vet
@@ -63,27 +70,29 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
+      uses: chainguard-actions/actions-checkout@d1f1061cdaee56aa3a3bc3deb86b67b1db772dd6 # v6.0.2
       with:
         # fetching all tags is required for the Makefile to compute the right version
         fetch-depth: 0
+        persist-credentials: false
 
     - name: Set up Go
-      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492
+      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492 # v2.2.0
       with:
         go-version: "1.20"
+        cache: false
 
     - name: Set up QEMU dependency
-      uses: docker/setup-qemu-action@27d0a4f181a40b142cce983c5393082c365d1480
+      uses: docker/setup-qemu-action@27d0a4f181a40b142cce983c5393082c365d1480 # v1.2.0
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@f211e3e9ded2d9377c8cadc4489a4e38014bc4c9
+      uses: docker/setup-buildx-action@f211e3e9ded2d9377c8cadc4489a4e38014bc4c9 # v1.7.0
 
     - name: Setup dependencies
       run: sudo apt update && sudo apt install -y util-linux udev parted e2fsprogs mount tar extlinux qemu-utils qemu-system
 
     - name: Share cache with other actions
-      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c
+      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3.5.0
       with:
         path: |
           ~/go/pkg/mod
@@ -91,6 +100,7 @@ jobs:
         key: ${{ runner.os }}-tests-${{ github.sha }}
         restore-keys: |
           ${{ runner.os }}-tests-
+        lookup-only: true
 
     - name: Run tests
       run: git --no-pager diff --exit-code HEAD~1 HEAD **/**.go templates/ || IMAGE=${{ matrix.image }} make test-templates
@@ -107,27 +117,29 @@ jobs:
         - debian:11
     steps:
     - name: Checkout
-      uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
+      uses: chainguard-actions/actions-checkout@d1f1061cdaee56aa3a3bc3deb86b67b1db772dd6 # v6.0.2
       with:
         # fetching all tags is required for the Makefile to compute the right version
         fetch-depth: 0
+        persist-credentials: false
 
     - name: Set up Go
-      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492
+      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492 # v2.2.0
       with:
         go-version: "1.20"
+        cache: false
 
     - name: Set up QEMU dependency
-      uses: docker/setup-qemu-action@27d0a4f181a40b142cce983c5393082c365d1480
+      uses: docker/setup-qemu-action@27d0a4f181a40b142cce983c5393082c365d1480 # v1.2.0
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@f211e3e9ded2d9377c8cadc4489a4e38014bc4c9
+      uses: docker/setup-buildx-action@f211e3e9ded2d9377c8cadc4489a4e38014bc4c9 # v1.7.0
 
     - name: Setup dependencies
       run: sudo apt update && sudo apt install -y util-linux udev parted e2fsprogs mount tar extlinux qemu-utils qemu-system ovmf
 
     - name: Share cache with other actions
-      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c
+      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3.5.0
       with:
         path: |
           ~/go/pkg/mod
@@ -135,6 +147,7 @@ jobs:
         key: ${{ runner.os }}-e2e-tests-${{ github.sha }}
         restore-keys: |
           ${{ runner.os }}-tests-
+        lookup-only: true
 
     - name: Run end-to-end tests
       run: E2E_IMAGES=${{ matrix.image }} make e2e
@@ -145,18 +158,20 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
+      uses: chainguard-actions/actions-checkout@d1f1061cdaee56aa3a3bc3deb86b67b1db772dd6 # v6.0.2
       with:
         # fetching all tags is required for the Makefile to compute the right version
         fetch-depth: 0
+        persist-credentials: false
 
     - name: Set up Go
-      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492
+      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492 # v2.2.0
       with:
         go-version: "1.20"
+        cache: false
 
     - name: Share cache with other actions
-      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c
+      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3.5.0
       with:
         path: |
           ~/go/pkg/mod
@@ -164,6 +179,7 @@ jobs:
         key: ${{ runner.os }}-tests-${{ github.sha }}
         restore-keys: |
           ${{ runner.os }}-tests-
+        lookup-only: true
 
     - name: Check if docs are up to date
       run: make docs-up-to-date
@@ -174,31 +190,33 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
+      uses: chainguard-actions/actions-checkout@d1f1061cdaee56aa3a3bc3deb86b67b1db772dd6 # v6.0.2
       with:
         # fetching all tags is required for the Makefile to compute the right version
         fetch-depth: 0
+        persist-credentials: false
 
     - name: Set up Go
-      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492
+      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492 # v2.2.0
       with:
         go-version: "1.20"
+        cache: false
 
     - name: Set up QEMU dependency
-      uses: docker/setup-qemu-action@27d0a4f181a40b142cce983c5393082c365d1480
+      uses: docker/setup-qemu-action@27d0a4f181a40b142cce983c5393082c365d1480 # v1.2.0
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@f211e3e9ded2d9377c8cadc4489a4e38014bc4c9
+      uses: docker/setup-buildx-action@f211e3e9ded2d9377c8cadc4489a4e38014bc4c9 # v1.7.0
 
     - name: Login to Docker Hub
-      uses: docker/login-action@dd4fa0671be5250ee6f50aedf4cb05514abda2c7
+      uses: docker/login-action@dd4fa0671be5250ee6f50aedf4cb05514abda2c7 # v1.14.1
       if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main'
       with:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
     - name: Share cache with other actions
-      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c
+      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3.5.0
       with:
         path: |
           ~/go/pkg/mod
@@ -206,13 +224,14 @@ jobs:
         key: ${{ runner.os }}-build-${{ github.sha }}
         restore-keys: |
           ${{ runner.os }}-build-
+        lookup-only: true
 
     - name: Ensure all files were well formatted
       run: make check-fmt
 
     - name: Import GPG key
       id: import_gpg
-      uses: crazy-max/ghaction-import-gpg@e00cb83a68c1158b29afc5217dd0582cada6d172
+      uses: crazy-max/ghaction-import-gpg@e00cb83a68c1158b29afc5217dd0582cada6d172 # v4.4.0
       if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main'
       with:
         gpg_private_key: ${{ secrets.GPG_KEY }}
@@ -234,31 +253,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
+      uses: chainguard-actions/actions-checkout@d1f1061cdaee56aa3a3bc3deb86b67b1db772dd6 # v6.0.2
       with:
         # fetching all tags is required for the Makefile to compute the right version
         fetch-depth: 0
+        persist-credentials: false
 
     - name: Set up Go
-      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492
+      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492 # v2.2.0
       with:
         go-version: "1.20"
+        cache: false
 
     - name: Set up QEMU dependency
-      uses: docker/setup-qemu-action@27d0a4f181a40b142cce983c5393082c365d1480
+      uses: docker/setup-qemu-action@27d0a4f181a40b142cce983c5393082c365d1480 # v1.2.0
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@f211e3e9ded2d9377c8cadc4489a4e38014bc4c9
+      uses: docker/setup-buildx-action@f211e3e9ded2d9377c8cadc4489a4e38014bc4c9 # v1.7.0
 
     - name: Login to Docker Hub
-      uses: docker/login-action@dd4fa0671be5250ee6f50aedf4cb05514abda2c7
+      uses: docker/login-action@dd4fa0671be5250ee6f50aedf4cb05514abda2c7 # v1.14.1
       if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main'
       with:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
     - name: Share cache with other actions
-      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c
+      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3.5.0
       with:
         path: |
           ~/go/pkg/mod
@@ -266,6 +287,7 @@ jobs:
         key: ${{ runner.os }}-build-image-${{ github.sha }}
         restore-keys: |
           ${{ runner.os }}-build-image-
+        lookup-only: true
 
     - name: Build Docker images
       run: make docker-build
@@ -287,18 +309,20 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
+      uses: chainguard-actions/actions-checkout@d1f1061cdaee56aa3a3bc3deb86b67b1db772dd6 # v6.0.2
       with:
         # fetching all tags is required for the Makefile to compute the right version
         fetch-depth: 0
+        persist-credentials: false
 
     - name: Set up Go
-      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492
+      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492 # v2.2.0
       with:
         go-version: "1.20"
+        cache: false
 
     - name: Share cache with other actions
-      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c
+      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3.5.0
       with:
         path: |
           ~/go/pkg/mod
@@ -306,10 +330,11 @@ jobs:
         key: ${{ runner.os }}-build-${{ github.sha }}
         restore-keys: |
           ${{ runner.os }}-build-
+        lookup-only: true
 
     - name: Import GPG key
       id: import_gpg
-      uses: crazy-max/ghaction-import-gpg@e00cb83a68c1158b29afc5217dd0582cada6d172
+      uses: crazy-max/ghaction-import-gpg@e00cb83a68c1158b29afc5217dd0582cada6d172 # v4.4.0
       with:
         gpg_private_key: ${{ secrets.GPG_KEY }}
         passphrase: ${{ secrets.GPG_PASSWORD }}
@@ -336,30 +361,32 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
+      uses: chainguard-actions/actions-checkout@d1f1061cdaee56aa3a3bc3deb86b67b1db772dd6 # v6.0.2
       with:
         # fetching all tags is required for the Makefile to compute the right version
         fetch-depth: 0
+        persist-credentials: false
 
     - name: Set up Go
-      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492
+      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492 # v2.2.0
       with:
         go-version: "1.20"
+        cache: false
 
     - name: Set up QEMU dependency
-      uses: docker/setup-qemu-action@27d0a4f181a40b142cce983c5393082c365d1480
+      uses: docker/setup-qemu-action@27d0a4f181a40b142cce983c5393082c365d1480 # v1.2.0
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@f211e3e9ded2d9377c8cadc4489a4e38014bc4c9
+      uses: docker/setup-buildx-action@f211e3e9ded2d9377c8cadc4489a4e38014bc4c9 # v1.7.0
 
     - name: Login to Docker Hub
-      uses: docker/login-action@dd4fa0671be5250ee6f50aedf4cb05514abda2c7
+      uses: docker/login-action@dd4fa0671be5250ee6f50aedf4cb05514abda2c7 # v1.14.1
       with:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
     - name: Share cache with other actions
-      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c
+      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3.5.0
       with:
         path: |
           ~/go/pkg/mod
@@ -367,6 +394,7 @@ jobs:
         key: ${{ runner.os }}-build-image-${{ github.sha }}
         restore-keys: |
           ${{ runner.os }}-build-image-
+        lookup-only: true
 
     - name: Build Docker images
       run: make docker-build
