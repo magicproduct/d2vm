@@ -17,7 +17,7 @@ concurrency:
 jobs:
   tests:
     name: Tests
-    runs-on: ubuntu-latest
+    runs-on: gh-8cpu-runner-mles
 
     steps:
     - name: Checkout
@@ -61,7 +61,7 @@ jobs:
 
   templates-tests:
     name: Test Templates
-    runs-on: ubuntu-latest
+    runs-on: gh-8cpu-runner-mles
     strategy:
       matrix:
         image:
@@ -114,7 +114,7 @@ jobs:
 
   e2e-tests:
     name: End to end Tests
-    runs-on: ubuntu-latest
+    runs-on: gh-8cpu-runner-mles
     strategy:
       fail-fast: false
       matrix:
@@ -162,7 +162,7 @@ jobs:
 
   docs-up-to-date:
     name: Docs up to date
-    runs-on: ubuntu-latest
+    runs-on: gh-8cpu-runner-mles
 
     steps:
     - name: Checkout
@@ -194,7 +194,7 @@ jobs:
 
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: gh-8cpu-runner-mles
 
     steps:
     - name: Checkout
@@ -258,7 +258,7 @@ jobs:
 
   build-image:
     name: Build Docker Image
-    runs-on: ubuntu-latest
+    runs-on: gh-8cpu-runner-mles
     steps:
     - name: Checkout
       uses: chainguard-actions/actions-checkout@d1f1061cdaee56aa3a3bc3deb86b67b1db772dd6 # v6.0.2
@@ -306,7 +306,7 @@ jobs:
 
   release:
     name: Release Binaries
-    runs-on: ubuntu-latest
+    runs-on: gh-8cpu-runner-mles
     if: startsWith(github.event.ref, 'refs/tags/v')
     needs:
     - tests
@@ -359,7 +359,7 @@ jobs:
 
   release-image:
     name: Release Docker Image
-    runs-on: ubuntu-latest
+    runs-on: gh-8cpu-runner-mles
     if: startsWith(github.event.ref, 'refs/tags/v')
     needs:
     - tests
