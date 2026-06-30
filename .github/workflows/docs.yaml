@@ -20,7 +20,7 @@ jobs:
       with:
         persist-credentials: false
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@f211e3e9ded2d9377c8cadc4489a4e38014bc4c9 # v1.7.0
+      uses: chainguard-actions/docker-setup-buildx-action@b6beb8a80a92c55017146dc002f047479d776a98 # v4.1.0
     - name: Build and deploy mkdocs site
       run: |
         git config --global user.name "github-actions[bot]"
