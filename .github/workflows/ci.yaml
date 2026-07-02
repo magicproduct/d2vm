@@ -28,7 +28,7 @@ jobs:
         persist-credentials: false
 
     - name: Set up Go
-      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492 # v2.2.0
+      uses: chainguard-actions/actions-setup-go@a5e8c9530cdd8d86c8c1e22fe4e2d0668896f7c7 # v6.5.0
       with:
         go-version: "1.20"
         cache: false
@@ -43,7 +43,7 @@ jobs:
       run: sudo apt update && sudo apt install -y util-linux udev parted e2fsprogs mount tar extlinux qemu-utils qemu-system
 
     - name: Share cache with other actions
-      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3.5.0
+      uses: chainguard-actions/actions-cache@f3b0db6485760961932c26cc9cf35a6a91a2c63e # v6.1.0
       with:
         path: |
           ~/go/pkg/mod
@@ -81,7 +81,7 @@ jobs:
         persist-credentials: false
 
     - name: Set up Go
-      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492 # v2.2.0
+      uses: chainguard-actions/actions-setup-go@a5e8c9530cdd8d86c8c1e22fe4e2d0668896f7c7 # v6.5.0
       with:
         go-version: "1.20"
         cache: false
@@ -96,7 +96,7 @@ jobs:
       run: sudo apt update && sudo apt install -y util-linux udev parted e2fsprogs mount tar extlinux qemu-utils qemu-system
 
     - name: Share cache with other actions
-      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3.5.0
+      uses: chainguard-actions/actions-cache@f3b0db6485760961932c26cc9cf35a6a91a2c63e # v6.1.0
       with:
         path: |
           ~/go/pkg/mod
@@ -130,7 +130,7 @@ jobs:
         persist-credentials: false
 
     - name: Set up Go
-      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492 # v2.2.0
+      uses: chainguard-actions/actions-setup-go@a5e8c9530cdd8d86c8c1e22fe4e2d0668896f7c7 # v6.5.0
       with:
         go-version: "1.20"
         cache: false
@@ -145,7 +145,7 @@ jobs:
       run: sudo apt update && sudo apt install -y util-linux udev parted e2fsprogs mount tar extlinux qemu-utils qemu-system ovmf
 
     - name: Share cache with other actions
-      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3.5.0
+      uses: chainguard-actions/actions-cache@f3b0db6485760961932c26cc9cf35a6a91a2c63e # v6.1.0
       with:
         path: |
           ~/go/pkg/mod
@@ -173,13 +173,13 @@ jobs:
         persist-credentials: false
 
     - name: Set up Go
-      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492 # v2.2.0
+      uses: chainguard-actions/actions-setup-go@a5e8c9530cdd8d86c8c1e22fe4e2d0668896f7c7 # v6.5.0
       with:
         go-version: "1.20"
         cache: false
 
     - name: Share cache with other actions
-      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3.5.0
+      uses: chainguard-actions/actions-cache@f3b0db6485760961932c26cc9cf35a6a91a2c63e # v6.1.0
       with:
         path: |
           ~/go/pkg/mod
@@ -205,7 +205,7 @@ jobs:
         persist-credentials: false
 
     - name: Set up Go
-      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492 # v2.2.0
+      uses: chainguard-actions/actions-setup-go@a5e8c9530cdd8d86c8c1e22fe4e2d0668896f7c7 # v6.5.0
       with:
         go-version: "1.20"
         cache: false
@@ -224,7 +224,7 @@ jobs:
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
     - name: Share cache with other actions
-      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3.5.0
+      uses: chainguard-actions/actions-cache@f3b0db6485760961932c26cc9cf35a6a91a2c63e # v6.1.0
       with:
         path: |
           ~/go/pkg/mod
@@ -268,7 +268,7 @@ jobs:
         persist-credentials: false
 
     - name: Set up Go
-      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492 # v2.2.0
+      uses: chainguard-actions/actions-setup-go@a5e8c9530cdd8d86c8c1e22fe4e2d0668896f7c7 # v6.5.0
       with:
         go-version: "1.20"
         cache: false
@@ -287,7 +287,7 @@ jobs:
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
     - name: Share cache with other actions
-      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3.5.0
+      uses: chainguard-actions/actions-cache@f3b0db6485760961932c26cc9cf35a6a91a2c63e # v6.1.0
       with:
         path: |
           ~/go/pkg/mod
@@ -324,13 +324,13 @@ jobs:
         persist-credentials: false
 
     - name: Set up Go
-      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492 # v2.2.0
+      uses: chainguard-actions/actions-setup-go@a5e8c9530cdd8d86c8c1e22fe4e2d0668896f7c7 # v6.5.0
       with:
         go-version: "1.20"
         cache: false
 
     - name: Share cache with other actions
-      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3.5.0
+      uses: chainguard-actions/actions-cache@f3b0db6485760961932c26cc9cf35a6a91a2c63e # v6.1.0
       with:
         path: |
           ~/go/pkg/mod
@@ -376,7 +376,7 @@ jobs:
         persist-credentials: false
 
     - name: Set up Go
-      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492 # v2.2.0
+      uses: chainguard-actions/actions-setup-go@a5e8c9530cdd8d86c8c1e22fe4e2d0668896f7c7 # v6.5.0
       with:
         go-version: "1.20"
         cache: false
@@ -394,7 +394,7 @@ jobs:
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
     - name: Share cache with other actions
-      uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3.5.0
+      uses: chainguard-actions/actions-cache@f3b0db6485760961932c26cc9cf35a6a91a2c63e # v6.1.0
       with:
         path: |
           ~/go/pkg/mod
